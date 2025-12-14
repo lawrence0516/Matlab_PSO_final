@@ -1,0 +1,8 @@
+*.asv
+*.asv2
+*.mex*
+*.slxc
+slprj/
+*.ld
+*.p
+generated/
