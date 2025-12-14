@@ -27,12 +27,11 @@ tic;
 
 parfor s = 1:4
     fixed_c1_val = scenarios{s, 1};
-    % label_name = scenarios{s, 3};
     fixed_p_val  = scenarios{s, 4};
     
     [~, curve] = MFCPSO_func_plot(jingdu, func_list(1), fhd, D, pop_size, Max_Gen, fes_max, Xmin, Xmax, fixed_c1_val, fixed_p_val, func_list(1));
     
-    curve = max(curve, 1e-8); % 避免 log(0) 或過小
+    curve = max(curve, 1e-8); 
     
     results_curves{s} = curve;
 end
@@ -92,4 +91,5 @@ set(lgd, ...
     'FontSize', 14);              
 
 hold off;
+
 
