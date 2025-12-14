@@ -92,5 +92,3 @@ set(lgd, ...
     'FontSize', 14);              
 
 hold off;
-
-fprintf('繪圖完成！請檢查字體是否滿意。\n');
