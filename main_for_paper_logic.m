@@ -1,4 +1,4 @@
-clear all; % 修正了原本的拼寫錯誤
+clear all;
 clc;
 warning('off');
 
@@ -19,8 +19,7 @@ else
     fprintf('Warning: Connected to %d workers (Target was %d).\n', p.NumWorkers, desired_workers);
 end
 
-% --- 2. 實驗參數設定 ---
-D = 100; % 設定維度 (你可以改回 10, 30, 50)
+D = 100; 
 Xmin = -100;
 Xmax = 100;
 fes_max = 10000 * D; 
@@ -32,7 +31,6 @@ fbias = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,...
 jingdu = 0;
 funset = [1:30]; % 跑 F1 到 F30
 
-% --- 【修改 1】設定輸出檔名 (加上 _PaperLogic 以區分) ---
 filename_data = sprintf('CEC2017_Result_D%d_PaperLogic.xlsx', D);       
 filename_summary = sprintf('CEC2017_Summary_D%d_PaperLogic.xlsx', D); 
 
@@ -46,14 +44,10 @@ for fun = 1:length(funset)
     
     temp_fbest = zeros(runtimes, 1);
     
-    % --- 平行運算迴圈 ---
     parfor runs = 1:runtimes
-        % 粒子數設定 (依照論文 Table III: 2*D)
         current_pop_size = 2 * D;   
         current_iter_max = ceil(fes_max / current_pop_size);
     
-        % --- 【修改 2】呼叫 "PaperLogic" 版本的函式 ---
-        % 這裡使用的是你修改過 (pos + 無雜訊) 的程式碼
         [gbest, gbestval, FES] = MFCPSO_func_PaperLogic(jingdu, func_num, fhd, D, current_pop_size, current_iter_max, fes_max, Xmin, Xmax, func_num);
         
         temp_fbest(runs) = gbestval;
@@ -107,4 +101,5 @@ end
 
 fprintf('All calculations complete!\n');
 fprintf('1. Detailed Data saved to: %s\n', filename_data);
+
 fprintf('2. Summary Report saved to: %s\n', filename_summary);
